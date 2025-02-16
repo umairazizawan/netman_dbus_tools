@@ -1,8 +1,12 @@
 
+#!/usr/bin/env python
+
 import dbus
 
+###################################################################################################
 DEVICE_TYPE_WIFI_ID = 2
 
+###################################################################################################
 def get_wifi_interface_name():
     '''
     Retrieves the name of the Wi-Fi network interface using python dbus.
@@ -45,6 +49,7 @@ def get_wifi_interface_name():
         print(f"An unexpected error occurred: {e}")
         return None
 
+###################################################################################################
 if __name__ == "__main__":
 
     wifi_interface = get_wifi_interface_name()
