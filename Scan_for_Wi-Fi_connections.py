@@ -7,7 +7,7 @@ import time
 #import function to get name of Wi-Fi interface
 from get_wifi_interface_name import get_wifi_interface_name
 
-def scan_wifi(interface_name):
+def scan_for_wifi_devices(interface_name):
     bus = SystemBus()
     network_manager = bus.get("org.freedesktop.NetworkManager")
 
@@ -42,19 +42,31 @@ def scan_wifi(interface_name):
             print("Wi-Fi scan complete. Available networks:")
             # Get available access points after scan completion
             access_points = wifi_device.GetAccessPoints()
+
+            wifi_networks = []
+
+            # get info for all found networks and store them in a dictionary
             for ap_path in access_points:
                 access_point = bus.get(".NetworkManager", ap_path)
                 ssid = bytearray(access_point.Ssid).decode()
                 strength = access_point.Strength
                 security = "None" if not access_point.WpaFlags and not access_point.RsnFlags else "WPA/WPA2"
-                print(f"SSID: {ssid}, Strength: {strength}%, Security: {security}")
-            break
+
+                wifi_networks.append({
+                    "SSID": ssid,
+                    "Strength": strength,
+                    "Security": security
+                })
+            return wifi_networks
         time.sleep(1)
 
 if __name__ == "__main__":
     wifi_interface = get_wifi_interface_name()
     if wifi_interface:
         print(f"Found Wi-Fi Interface: {wifi_interface}")
-        scan_wifi(wifi_interface)
+        wifi_networks_info = scan_for_wifi_devices(wifi_interface)
+        if wifi_networks_info:
+            for network in wifi_networks_info:
+                print(f"SSID: {network['SSID']}, Strength: {network['Strength']}%, Security: {network['Security']}")
     else:
         print(f"No Wi-Fi Interface found. Unable to scan")
