@@ -9,6 +9,7 @@ These tools are intended to build upon th official examples provided in the offi
 
 * get_wifi_interface_name
 * disconnect_from_wifi_connection
+* Scan_for_Wi-Fi_connections
 
 ## Supported Platforms
 
@@ -30,4 +31,4 @@ NOTE: Scripts have been tested with Ubuntu 22 but it should work with Ubuntu 24
     1.22.10
 ```
 
-NOTE: NetworkManager DBUS-API was updated about 4 years ago so you may face issue if you are using a significant older or newer version. But the core principles should stay the same. 
+NOTE: NetworkManager DBUS-API was updated around version so you may face issue if you are using a significant older or newer version. But the core principles should stay the same. 
