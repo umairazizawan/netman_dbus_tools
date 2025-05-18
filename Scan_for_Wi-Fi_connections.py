@@ -4,9 +4,12 @@ from pydbus import SystemBus
 from gi.repository import GLib
 import time
 
-#import function to get name of Wi-Fi interface
 from get_wifi_interface_name import get_wifi_interface_name
 
+###################################################################################################
+DEVICE_TYPE_WIFI_ID = 2
+
+###################################################################################################
 def scan_for_wifi_devices(interface_name):
     bus = SystemBus()
     network_manager = bus.get("org.freedesktop.NetworkManager")
@@ -18,7 +21,7 @@ def scan_for_wifi_devices(interface_name):
     wifi_device = None
     for device_path in devices:
         device = bus.get(".NetworkManager", device_path)
-        if device.Interface == interface_name and device.DeviceType == 2:  # 2 represents Wi-Fi
+        if device.Interface == interface_name and device.DeviceType == DEVICE_TYPE_WIFI_ID:
             wifi_device = device
             break
 
@@ -27,7 +30,6 @@ def scan_for_wifi_devices(interface_name):
         return
 
     # Get the current value of LastScan before triggering a new scan
-    # Rate Limiting
     last_scan_timestamp_before = wifi_device.LastScan
 
     # Request a Wi-Fi scan
@@ -60,6 +62,7 @@ def scan_for_wifi_devices(interface_name):
             return wifi_networks
         time.sleep(1)
 
+###################################################################################################
 if __name__ == "__main__":
     wifi_interface = get_wifi_interface_name()
     if wifi_interface:

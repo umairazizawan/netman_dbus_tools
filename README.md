@@ -10,6 +10,7 @@ These tools are intended to build upon th official examples provided in the offi
 * get_wifi_interface_name
 * disconnect_from_wifi_connection
 * Scan_for_Wi-Fi_connections
+* connect_to_wifi
 
 ## Supported Platforms
 
