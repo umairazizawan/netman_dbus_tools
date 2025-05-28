@@ -10,7 +10,13 @@ from get_wifi_interface_name import get_wifi_interface_name
 DEVICE_TYPE_WIFI_ID = 2
 
 ###################################################################################################
-def scan_for_wifi_devices(interface_name):
+def scan_for_wifi_networks(interface_name):
+    '''
+    Scans for available Wi-Fi networks using NetworkManager DBUS Interface.
+    :param interface_name: The name of the Wi-Fi interface to scan (e.g., "wlan0").
+    :return: A list of dictionaries containing SSID, Strength, and Security type of available Wi-Fi networks.
+    If no Wi-Fi networks are found, returns an empty list.
+    '''
     bus = SystemBus()
     network_manager = bus.get("org.freedesktop.NetworkManager")
 
@@ -67,7 +73,7 @@ if __name__ == "__main__":
     wifi_interface = get_wifi_interface_name()
     if wifi_interface:
         print(f"Found Wi-Fi Interface: {wifi_interface}")
-        wifi_networks_info = scan_for_wifi_devices(wifi_interface)
+        wifi_networks_info = scan_for_wifi_networks(wifi_interface)
         if wifi_networks_info:
             for network in wifi_networks_info:
                 print(f"SSID: {network['SSID']}, Strength: {network['Strength']}%, Security: {network['Security']}")

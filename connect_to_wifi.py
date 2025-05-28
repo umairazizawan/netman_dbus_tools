@@ -7,7 +7,7 @@ import uuid
 DEVICE_TYPE_WIFI_ID = 2
 
 
-WIFI_SSID = "MYWIFI" # Replace with your Wi-Fi SSID and Password
+WIFI_SSID = "MYWIFI"            # Replace with your Wi-Fi SSID and Password
 WIFI_PASSWORD = "MYPASSWORD"
 
 ###################################################################################################
